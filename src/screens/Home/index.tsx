@@ -1,10 +1,13 @@
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import { styles } from './styles';
 import { Participant } from '../../components/Participant';
 
 export function Home() {
-    function handleParticipantAdd() {
 
+  const participants = ['Alesandra', 'Zoe', 'Snoopy', 'Suzy', 'Floquinho', 'Belinha', 'Mimi', '']
+
+    function handleParticipantAdd(name: string) {
+      console.log(`Você clicou em remover o ${name}`)
     }
 
 
@@ -23,15 +26,30 @@ export function Home() {
             />
 
             {/* Região clicável */}
-            <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
+            <TouchableOpacity style={styles.button} onPress={() => handleParticipantAdd("Alesandra")}>
                 <Text style={styles.buttonText}>+</Text>
             </TouchableOpacity>
         </View>
-
-        <Participant name="Alesandra"/>
-        <Participant name="Zoe"/>
-        <Participant name="Snoopy"/>
-
+        {/* Nao precisa fazer map, pois ela mesma lida com a lista sozinha  
+          pode incluir um componente caso a lista aparece vazia usando o ListEmptyComponent
+        */}
+        <FlatList 
+          data={participants}
+          keyExtractor={item => item}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) => (
+            <Participant 
+            key={item}
+            name={item}
+            onRemove={() => handleParticipantAdd("Alesandra")}
+           />
+          )}
+          ListEmptyComponent={() => (
+            <Text style={styles.listEmptyText}>
+              Ninguém chegou no evento ainda ? Adicione participantes a sua lista de presença 
+            </Text>
+          )}
+        />
     </View>
   );
 }
