@@ -4,14 +4,16 @@ import { Participant } from '../../components/Participant';
 import { useState } from 'react';
 
 export function Home() {
-  const [participants, setParticipants] = useState(['Alesandra'])
+  const [participants, setParticipants] = useState<string[]>([])
+  const [participantName, setParticipantName] = useState('')
 
     function handleParticipantAdd() {
-      if(participants.includes('Alesandra')) {
+      if(participants.includes(participantName)) {
         return Alert.alert('Participante Existe', 'Já existe um participante na lista com esse nome')
       }
 
-      setParticipants(prevState => [...prevState, 'Zoe'])
+      setParticipants(prevState => [...prevState, participantName])
+      setParticipantName('');
       console.log(participants)
 
     }
@@ -38,9 +40,13 @@ export function Home() {
 
         <View style={styles.form}>
             <TextInput 
-            style={styles.input} 
-            placeholder='Nome do participante'
-            placeholderTextColor='#fff'
+              style={styles.input} 
+              placeholder='Nome do participante'
+              placeholderTextColor='#fff'
+              // dispara evento sempre que o conteudo muda, acessa conteudo atual da caixa de texto, sempre que muda
+              onChangeText={text => setParticipantName(text)}
+              // onChangeText={setParticipantName}
+              value={participantName}
             />
             <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
                 <Text style={styles.buttonText}>+</Text>
