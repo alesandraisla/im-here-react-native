@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { styles } from './styles';
 import { Participant } from '../../components/Participant';
 
@@ -7,9 +7,23 @@ export function Home() {
   const participants = ['Alesandra', 'Zoe', 'Snoopy', 'Suzy', 'Floquinho', 'Belinha', 'Mimi', '']
 
     function handleParticipantAdd(name: string) {
-      console.log(`Você clicou em remover o ${name}`)
+      if(participants.includes('Alesandra')) {
+        return Alert.alert('Participante Existe', 'Já existe um participante na lista com esse nome')
+      }
     }
 
+    function handleParticipantRemove(name: string) {
+      Alert.alert('Remover', `Remover o participante ${name}`, [
+        {
+          text: 'Sim',
+          onPress: () => Alert.alert('Deletado!')
+        },
+        {
+          text: 'Não',
+          style: 'cancel'
+        }
+      ])
+    }
 
   return (
     <View style={styles.container}>
@@ -24,15 +38,11 @@ export function Home() {
             placeholder='Nome do participante'
             placeholderTextColor='#fff'
             />
-
-            {/* Região clicável */}
             <TouchableOpacity style={styles.button} onPress={() => handleParticipantAdd("Alesandra")}>
                 <Text style={styles.buttonText}>+</Text>
             </TouchableOpacity>
         </View>
-        {/* Nao precisa fazer map, pois ela mesma lida com a lista sozinha  
-          pode incluir um componente caso a lista aparece vazia usando o ListEmptyComponent
-        */}
+       
         <FlatList 
           data={participants}
           keyExtractor={item => item}
@@ -41,7 +51,7 @@ export function Home() {
             <Participant 
             key={item}
             name={item}
-            onRemove={() => handleParticipantAdd("Alesandra")}
+            onRemove={() => handleParticipantRemove(item)}
            />
           )}
           ListEmptyComponent={() => (
