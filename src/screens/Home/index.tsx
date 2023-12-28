@@ -22,7 +22,7 @@ export function Home() {
       Alert.alert('Remover', `Remover o participante ${name}`, [
         {
           text: 'Sim',
-          onPress: () => Alert.alert('Deletado!')
+          onPress: () => setParticipants(prevState => prevState.filter(Participant => Participant !== name))
         },
         {
           text: 'Não',
@@ -43,9 +43,7 @@ export function Home() {
               style={styles.input} 
               placeholder='Nome do participante'
               placeholderTextColor='#fff'
-              // dispara evento sempre que o conteudo muda, acessa conteudo atual da caixa de texto, sempre que muda
               onChangeText={text => setParticipantName(text)}
-              // onChangeText={setParticipantName}
               value={participantName}
             />
             <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
