@@ -8,14 +8,14 @@ export function Home() {
   const [participantName, setParticipantName] = useState('')
 
     function handleParticipantAdd() {
-      if(participants.includes(participantName)) {
+      const lowercaseParticipantName = participantName.toLowerCase();
+      
+      if(participants.map(name => name.toLowerCase()).includes(lowercaseParticipantName)) {
         return Alert.alert('Participante Existe', 'Já existe um participante na lista com esse nome')
       }
 
       setParticipants(prevState => [...prevState, participantName])
       setParticipantName('');
-      console.log(participants)
-
     }
 
     function handleParticipantRemove(name: string) {
@@ -33,9 +33,9 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.eventName}>Nome do evento</Text>
+      <Text style={styles.eventName}>Evento Reveillon</Text>
       <Text style={styles.eventDate}>
-        Sexta, 4 de Novembro de 2022
+        Domingo, 31 de Dezembro de 2023
       </Text>
 
         <View style={styles.form}>
