@@ -9,7 +9,7 @@ export function Home() {
 
     function handleParticipantAdd() {
       const lowercaseParticipantName = participantName.toLowerCase();
-      
+
       if(participants.map(name => name.toLowerCase()).includes(lowercaseParticipantName)) {
         return Alert.alert('Participante Existe', 'Já existe um participante na lista com esse nome')
       }
@@ -71,10 +71,3 @@ export function Home() {
     </View>
   );
 }
-
-
-// .color1 {color: #f8b4ed;}
-// .color2 {color: #f8bbca;}
-// .color3 {color: #1755a4;}
-// .color4 {color: #1a94b5;}
-// .color5 {color: #20dacb;}
